@@ -4,7 +4,6 @@ from transformers import BartForConditionalGeneration, BartTokenizer
 from io import StringIO
 import pandas as pd
 import pymupdf
-from datetime import datetime
 
 # Intro Text
 st.markdown('# PDF summarization using Pegasus')
@@ -27,7 +26,6 @@ tokenizer = BartTokenizer.from_pretrained(model_name)
 
 def pdf_to_dataframe(input_file):
   metadata = []
-  pdf = pymupdf.open(input_file)
   # Get page content as dict and blocks of data
   for page in pdf:
     pages = page.get_text('dict')
@@ -67,6 +65,3 @@ if input_file:
   st.success('Summary ready!')
   st.text_area(label ="",value=page_wise_text, placeholder="Please upload a PDF to get it's summary", height = 100)
   st.markdown('')
-  end = datetime.now() - start
-
-  st.header(end)
